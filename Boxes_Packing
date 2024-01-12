@@ -1,0 +1,26 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+
+namespace Boxes_Packing
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int arCount = Convert.ToInt32(Console.ReadLine().Trim());
+            List<int> ar = Console.ReadLine().TrimEnd().Split(' ').ToList().Select(arTemp => Convert.ToInt32(arTemp)).ToList();
+            var groupedResults = ar
+                                .GroupBy(item => item)
+                                .Select(group => new
+                                {
+                                    Value = group.Key,
+                                    Count = group.Count()
+                                })
+                                .OrderByDescending(result => result.Count)
+                                .FirstOrDefault();
+            Console.WriteLine(groupedResults.Count);
+        }
+    }
+}
